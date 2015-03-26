@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app>
+
+<head>
+        <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.js"></script>
+        <link rel="stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="myscript.js"></script>
+</head>
+
+<body ng-controller="ExampleCtrl">
+<header>
+<h2 class="text-center">Dell Storage Web UI</h2>
+</header>
+
+<div class="container">
+
+<form name="myForm" ng-model="myForm" novalidate>
+
+<p>Enter Port no:
+<input type="text" name="interface" ng-model="interface" required ng-pattern="/^[a-z]*\s[0-9]*\/[0-9]{1,2}$/">
+<span style="color:red" ng-show="myForm.interface.$dirty && myForm.interface.$invalid">
+<span ng-show="myForm.interface.$error.required">Port is required.</span>
+<span ng-show="myForm.interface.$error.pattern">Not a valid port! eg: tengig 0/10</span>
+</span>
+</p>
+
+<p>
+<button ng-show="myForm.interface.$valid" class="btn btn-success" ng-click="add()" ng-disabled="(myForm.interface.$dirty && myForm.interface.$invalid) || isDisabled" ng-model="isDisabled" >Show Interface details</button>
+</p>
+
+</form>
+
+<div>
+    <table id="example" class="table table-bordered">
+                <thead>
+                        <tr>
+                        <th>Interface</th><th>MTU</th><th>Action</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr ng-repeat="d in intdetails">
+                                <td>{{ d.interface }}</td><td>{{ d.mtu }}</td>
+                                <td><button type="button" ng-click="remove($index)" class="btn btn-danger btn-xs"> <span class="glyphicon glyphicon-remove"></span> Remove </button></td>
+                        </tr>
+                </tbody>
+    </table>
+</div>
+
+</div>
+</body>
+</html>
